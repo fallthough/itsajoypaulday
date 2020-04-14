@@ -56,7 +56,8 @@ $(document).ready(function () {
     /***************** Initiate Fancybox ******************/
 
     $('.single_image').fancybox({
-        padding: 4
+        padding: 4,
+        height: 800
     });
 
     $('.fancybox').fancybox({
@@ -90,7 +91,7 @@ $(document).ready(function () {
             var scroll = $(window).scrollTop();
 
             if (scroll >= 20) {
-                $('section.navigation').addClass('fixed');
+                // $('section.navigation').addClass('fixed');
                 $('header').css({
                     "border-bottom": "none",
                     "padding": "35px 0"
@@ -102,7 +103,7 @@ $(document).ready(function () {
                     "top": "34px",
                 });
             } else {
-                $('section.navigation').removeClass('fixed');
+                // $('section.navigation').removeClass('fixed');
                 $('header').css({
                     "border-bottom": "solid 1px rgba(255, 255, 255, 0.2)",
                     "padding": "50px 0"
