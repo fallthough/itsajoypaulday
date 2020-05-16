@@ -222,8 +222,13 @@ $(document).ready(function () {
             $.post('https://script.google.com/macros/s/AKfycbyAoPq4sQqnkkMvOhsswDqlrFjnqWcBGLgciCTwaUgHNvNYaS8/exec', data)
                 .done(function (data) {
                     console.log(data);
-                    $('#alert-wrapper').html('');
-                    $('#rsvp-modal').modal('show');
+                    if (data.result === "error") {
+                        $('#alert-wrapper').html(alert_markup('danger', data.message));
+                    } else {
+                        $('#alert-wrapper').html('');
+                        $('#rsvp-modal').modal('show');
+                        document.getElementById('rsvp-form').reset();
+                    }
                 })
                 .fail(function (data) {
                     console.log(data);
@@ -232,6 +237,32 @@ $(document).ready(function () {
         }
     });
 
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            vars[key] = value;
+        });
+        return vars;
+    }
+
+    function getUrlParam(parameter, defaultvalue){
+        var urlparameter = defaultvalue;
+        if(window.location.href.indexOf(parameter) > -1){
+            urlparameter = getUrlVars()[parameter];
+            }
+        return urlparameter;
+    }
+
+    function updateFieldValue() {
+        var findField = document.getElementById('guestname');
+        var nameVal = decodeURI(getUrlParam('name',null))
+        if ('null' != nameVal) {
+            findField.value = nameVal;
+        }
+        
+    }
+    
+    window.onload = updateFieldValue;
 });
 
 /********************** Extras **********************/
